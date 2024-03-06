@@ -1,11 +1,55 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
     <head>
-        <meta charset='utf-8'>
+        <meta charset="utf-8">
         <title>Calculator</title>
-        <link rel='stylesheet' href="./css/calculator-style.css">
-        <script src='./javascript/calculator-javascript.js' defer></script>
+        <link rel="stylesheet" href="./css/calculator-style.css">
+        <script src="./javascript/calculator-javascript.js" defer></script>
     </head>
     <body>
+        <div id="calculator">
+            <div id="screen"></div>
+            <div id="memory-bar">
+                <button class="memory">MC</button>
+                <button class="memory">MR</button>
+                <button class="memory">M+</button>
+                <button class="memory">M-</button>
+            </div>
+            <div id="numpad">
+                <div id="numpad-left">
+                    <button class="btns-left">%</button>
+                    <button class="btns-left">+/-</button>
+                    <button class="btns-left">-></button>
+                    <button class="btns-left">C</button>
+                    <button class="btns-left">CE</button>
+                </div>
+                <div id="numpad-right">
+                    <div class="row">
+                        <button class="btns-right">7</button>
+                        <button class="btns-right">8</button>
+                        <button class="btns-right">9</button>
+                        <button class="btns-right">/</button>
+                    </div>
+                    <div class="row">
+                        <button class="btns-right">4</button>
+                        <button class="btns-right">5</button>
+                        <button class="btns-right">6</button>
+                        <button class="btns-right">x</button>
+                    </div>
+                    <div class="row">
+                        <button class="btns-right">1</button>
+                        <button class="btns-right">2</button>
+                        <button class="btns-right">3</button>
+                        <button class="btns-right">-</button>
+                    </div>
+                    <div class="row">
+                        <button class="btns-right">0</button>
+                        <button class="btns-right">.</button>
+                        <button class="btns-right">=</button>
+                        <button class="btns-right">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
