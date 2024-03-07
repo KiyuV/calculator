@@ -5,11 +5,14 @@
         <title>Calculator</title>
         <link rel="stylesheet" href="./css/calculator-style.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-        
         <script src="./javascript/calculator-javascript.js" defer></script>
     </head>
     <body>
         <div id="calculator">
+            <div id="status-hist">
+                <div id="status"></div>
+                <div id="hist"></div>
+            </div>
             <div id="screen"></div>
             <div id="memory-bar">
                 <button class="memory">MC</button>
@@ -27,28 +30,28 @@
                 </div>
                 <div id="numpad-right">
                     <div class="row">
-                        <button class="btns-right">7</button>
-                        <button class="btns-right">8</button>
-                        <button class="btns-right">9</button>
-                        <button class="btns-right" id="operator"><span>&#247;</span></button>
+                        <button class="btns-right num">7</button>
+                        <button class="btns-right num">8</button>
+                        <button class="btns-right num">9</button>
+                        <button class="btns-right operator"><span>&#247;</span></button>
                     </div>
                     <div class="row">
-                        <button class="btns-right">4</button>
-                        <button class="btns-right">5</button>
-                        <button class="btns-right">6</button>
-                        <button class="btns-right" id="operator">x</button>
+                        <button class="btns-right num">4</button>
+                        <button class="btns-right num">5</button>
+                        <button class="btns-right num">6</button>
+                        <button class="btns-right operator">x</button>
                     </div>
                     <div class="row">
-                        <button class="btns-right">1</button>
-                        <button class="btns-right">2</button>
-                        <button class="btns-right">3</button>
-                        <button class="btns-right" id="operator">-</button>
+                        <button class="btns-right num">1</button>
+                        <button class="btns-right num">2</button>
+                        <button class="btns-right num">3</button>
+                        <button class="btns-right operator">-</button>
                     </div>
                     <div class="row">
-                        <button class="btns-right">0</button>
-                        <button class="btns-right">.</button>
+                        <button class="btns-right num">0</button>
+                        <button class="btns-right num">.</button>
                         <button class="btns-right" id="equals">=</button>
-                        <button class="btns-right" id="operator">+</button>
+                        <button class="btns-right operator">+</button>
                     </div>
                 </div>
             </div>
