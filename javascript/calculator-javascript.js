@@ -79,7 +79,7 @@ operators.map((operatr) => {
             setScreen('');
             pressedEqual = false;
         }
-        else if (onSubScreen.includes('%')) {
+        else if (onSubScreen.includes('%') || (num2 === undefined && operator === undefined)) {
             num1 = Number(onScreen);
             operator = operatr.textContent;
             onScreen = '';
