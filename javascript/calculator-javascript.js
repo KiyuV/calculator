@@ -23,6 +23,7 @@ let onSubScreen = '';
 // Query Selectos
 const numpad = [...document.querySelectorAll('.num')];
 const operators = [...document.querySelectorAll('.operator')];
+const leftBtns = [...document.querySelectorAll('.btns-left')];
 const equals = document.querySelector('#equals');
 const screen = document.querySelector('#screen');
 const subScreen = document.querySelector('#hist');
@@ -59,6 +60,7 @@ operators.map((operatr) => {
     operatr.addEventListener('click', () => {
         // when an operator is pressed after = (adding an expression to current answer)
         if (pressedEqual === true) {
+            num1 !== Number(onScreen) ? num1 = Number(onScreen) : num1;
             console.log('top');
             onSubScreen = '';
             operator = operatr.textContent;
@@ -66,8 +68,15 @@ operators.map((operatr) => {
             onScreen = '';
             setScreen('');
             pressedEqual = false;
-
-        } 
+        }
+        else if (onSubScreen.includes('%')) {
+            num1 = Number(onScreen);
+            operator = operatr.textContent;
+            onScreen = '';
+            setScreen('');
+            onSubScreen = '';
+            setSubScreen(`${num1} ${operator} `);
+        }
         // when the user has entered one number and presses the operator instead of = (continuing the expressio without pressing =)
         else if (num1 !== undefined && num2 === undefined) {
             console.log('middle');
@@ -106,9 +115,8 @@ equals.addEventListener('click', () => {
     else {
         // when an operator and equals is pressed without enterting a second number (incomplete expression, eg. 12 +=) assign it to num1
         onScreen === '' ? num2 = num1 : num2 = Number(onScreen);
-        console.log(num2);
         ans = operate(operator, num1, num2);
-        setSubScreen(`${num2} =`);
+        num2 > 0 ?  setSubScreen(`${num2} =`) : setSubScreen(`( ${num2} ) =`);
         onScreen = '';
         setScreen(`${ans}`);
 
@@ -116,4 +124,48 @@ equals.addEventListener('click', () => {
         num2 = undefined;
         pressedEqual = true;
     }
+})
+
+leftBtns.map((btn) => {
+    let currentBtn = btn.textContent;
+    btn.addEventListener('click', () => {
+        switch (currentBtn) {
+            // resets all stored data on the calculator
+            case 'CE':
+                num1 = undefined;
+                num2 = undefined;
+                operator = undefined;
+                ans = undefined;
+                pressedEqual = false;
+                onScreen = '';
+                onSubScreen = '';
+                setScreen('');
+                setSubScreen('');
+                break;
+            case 'C':
+                onScreen = ('');
+                setScreen('');
+                break;
+            case 'arrow_forward_ios':
+                let backspace = onScreen.slice(0, -1);
+                onScreen = '';
+                setScreen('');
+                setScreen(backspace);
+                break;
+            case '+/-':
+                let tmp = Number(onScreen);
+                tmp *= -1;
+                onScreen = '';
+                setScreen(`${tmp}`);
+                break;
+            case '%':
+                let percent = Number(onScreen);
+                let percentage = multiply(num1, percent/100);
+                onScreen = '';
+                setScreen(`${percentage}`);
+                setSubScreen(`${percent}% =`);
+                num1 = percentage;
+                break;
+        }
+    })
 })
