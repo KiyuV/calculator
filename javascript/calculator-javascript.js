@@ -16,6 +16,7 @@ let num2;
 let operator;
 let ans;
 let pressedEqual = false;
+let memory = 0;
 
 let onScreen = '';
 let onSubScreen = '';
@@ -24,9 +25,11 @@ let onSubScreen = '';
 const numpad = [...document.querySelectorAll('.num')];
 const operators = [...document.querySelectorAll('.operator')];
 const leftBtns = [...document.querySelectorAll('.btns-left')];
+const memoryBtn = [...document.querySelectorAll('.memory')];
 const equals = document.querySelector('#equals');
 const screen = document.querySelector('#screen');
 const subScreen = document.querySelector('#hist');
+const stat = document.querySelector('#status');
 
 function operate(operator, num1, num2) {
     switch (operator) {
@@ -61,7 +64,6 @@ operators.map((operatr) => {
         // when an operator is pressed after = (adding an expression to current answer)
         if (pressedEqual === true) {
             num1 !== Number(onScreen) ? num1 = Number(onScreen) : num1;
-            console.log('top');
             onSubScreen = '';
             operator = operatr.textContent;
             setSubScreen(`${num1} ${operator} `);
@@ -79,7 +81,6 @@ operators.map((operatr) => {
         }
         // when the user has entered one number and presses the operator instead of = (continuing the expressio without pressing =)
         else if (num1 !== undefined && num2 === undefined) {
-            console.log('middle');
             num2 = Number(onScreen);
             ans = operate(operator, num1, num2);
             operator = operatr.textContent;
@@ -93,7 +94,6 @@ operators.map((operatr) => {
         } 
         // when no numbers have been entered
         else {
-            console.log('bottom');
             num1 = Number(onScreen);
             operator = operatr.textContent;
             setSubScreen(`${onScreen} ${operator} `);
@@ -165,6 +165,40 @@ leftBtns.map((btn) => {
                 setScreen(`${percentage}`);
                 setSubScreen(`${percent}% =`);
                 num1 = percentage;
+                break;
+        }
+    })
+})
+
+memoryBtn.map((btn) => {
+    let currentMemBtn = btn.textContent;
+    btn.addEventListener('click', () => {
+        switch (currentMemBtn) {
+            case 'MC':
+                memory = 0;
+                stat.innerHTML = '';
+                break;
+            case 'MR':
+                onScreen = '';
+                setScreen(memory);
+                break;
+            case 'MS':
+                stat.textContent = 'M';
+                memory = Number(onScreen);
+                break;
+            case 'M+':
+                if (stat.textContent === '') {
+                    stat.textContent = 'M';
+                }
+                memory += Number(onScreen);
+                console.log(memory);
+                break;
+            case 'M-':
+                if (stat.textContent === '') {
+                    stat.textContent = 'M'
+                }
+                memory -= Number(onScreen);
+                console.log(memory);
                 break;
         }
     })
