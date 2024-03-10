@@ -2,7 +2,13 @@
 const add = (a,b) => a + b;
 const subtract = (a,b) => a - b;
 const multiply = (a, b) => a * b;
-const divide = (a,b) => a / b;
+const divide = (a,b) => {
+    if (b === 0) {
+        return 'ERROR';
+    } else {
+        return Math.round(((a/b)*100))/100;
+    }
+} 
 
 // Variables to store user input
 let num1;
