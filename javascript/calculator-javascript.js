@@ -76,7 +76,7 @@ operators.map((operatr) => {
             num1 = ans;
             num2 = undefined;
         } 
-        // when no numbers have be entered
+        // when no numbers have been entered
         else {
             console.log('bottom');
             num1 = Number(onScreen);
@@ -89,13 +89,25 @@ operators.map((operatr) => {
 })
 
 equals.addEventListener('click', () => {
-    num2 = Number(onScreen);
-    ans = operate(operator, num1, num2);
-    setSubScreen(`${num2} =`);
-    onScreen = '';
-    setScreen(`${ans}`);
+    // when you user inputs a number without an operator 
+    if (num1 === undefined) {
+        num1 = Number(onScreen);
+        setSubScreen(`${num1} =`);
+        onScreen = '';
+        setScreen(`${num1}`);
+    }
+    // normal operation when the user pressed an operator, a second number and equals
+    else {
+        // when an operator and equals is pressed without enterting a second number (incomplete expression, eg. 12 +=) assign it to num1
+        onScreen === '' ? num2 = num1 : num2 = Number(onScreen);
+        console.log(num2);
+        ans = operate(operator, num1, num2);
+        setSubScreen(`${num2} =`);
+        onScreen = '';
+        setScreen(`${ans}`);
 
-    num1 = ans;
-    num2 = undefined;
-    pressedEqual = true;
+        num1 = ans;
+        num2 = undefined;
+        pressedEqual = true;
+    }
 })
