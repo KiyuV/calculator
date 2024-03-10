@@ -1,12 +1,12 @@
 // basic math functions
-const add = (a,b) => a + b;
-const subtract = (a,b) => a - b;
-const multiply = (a, b) => a * b;
+const add = (a,b) => Math.round(((a+b)*1000))/1000;
+const subtract = (a,b) => Math.round(((a-b)*1000))/1000;
+const multiply = (a, b) => Math.round(((a*b)*1000))/1000;
 const divide = (a,b) => {
     if (b === 0) {
         return 'ERROR';
     } else {
-        return Math.round(((a/b)*100))/100;
+        return Math.round(((a/b)*1000))/1000;
     }
 } 
 
@@ -17,6 +17,7 @@ let operator;
 let ans;
 let pressedEqual = false;
 let memory = 0;
+let decimalListener = true;
 
 let onScreen = '';
 let onSubScreen = '';
@@ -30,6 +31,7 @@ const equals = document.querySelector('#equals');
 const screen = document.querySelector('#screen');
 const subScreen = document.querySelector('#hist');
 const stat = document.querySelector('#status');
+const decimal = document.querySelector('#decimal');
 
 function operate(operator, num1, num2) {
     switch (operator) {
@@ -61,6 +63,12 @@ numpad.map((number) => {
 
 operators.map((operatr) => {
     operatr.addEventListener('click', () => {
+        if (decimalListener === false) {
+            decimal.addEventListener('click', () => {
+                setScreen(decimal.textContent);
+            }, {once : true})
+        }
+
         // when an operator is pressed after = (adding an expression to current answer)
         if (pressedEqual === true) {
             num1 !== Number(onScreen) ? num1 = Number(onScreen) : num1;
@@ -132,6 +140,12 @@ leftBtns.map((btn) => {
         switch (currentBtn) {
             // resets all stored data on the calculator
             case 'CE':
+                if (decimalListener === false) {
+                    decimal.addEventListener('click', () => {
+                        setScreen(decimal.textContent);
+                    }, {once : true})
+                }
+
                 num1 = undefined;
                 num2 = undefined;
                 operator = undefined;
@@ -143,11 +157,24 @@ leftBtns.map((btn) => {
                 setSubScreen('');
                 break;
             case 'C':
+                if (decimalListener === false) {
+                    decimal.addEventListener('click', () => {
+                        setScreen(decimal.textContent);
+                    }, {once : true})
+                }
+
                 onScreen = ('');
                 setScreen('');
                 break;
             case 'arrow_forward_ios':
                 let backspace = onScreen.slice(0, -1);
+                if (decimalListener === false) {
+                    if (!(backspace.includes('.'))) {
+                        decimal.addEventListener('click', () => {
+                            setScreen(decimal.textContent);
+                        }, {once : true})
+                    }
+                }
                 onScreen = '';
                 setScreen('');
                 setScreen(backspace);
@@ -203,3 +230,8 @@ memoryBtn.map((btn) => {
         }
     })
 })
+
+decimal.addEventListener('click', () => {
+    setScreen(decimal.textContent);
+    decimalListener = false;
+}, {once : true})
