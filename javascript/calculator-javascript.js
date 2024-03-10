@@ -9,6 +9,7 @@ let num1;
 let num2;
 let operator;
 let ans;
+let pressedEqual = false;
 
 let onScreen = '';
 let onSubScreen = '';
@@ -33,6 +34,7 @@ function operate(operator, num1, num2) {
     }
 }
 
+// functions to send input to the calculator's display
 function setScreen(string) {
     onScreen = screen.textContent = `${onScreen}${string}`;
 }
@@ -49,11 +51,40 @@ numpad.map((number) => {
 
 operators.map((operatr) => {
     operatr.addEventListener('click', () => {
-        num1 = Number(onScreen);
-        operator = operatr.textContent;
-        setSubScreen(`${onScreen} ${operator} `);
-        onScreen = '';
-        setScreen('');
+        // when an operator is pressed after = (adding an expression to current answer)
+        if (pressedEqual === true) {
+            console.log('top');
+            onSubScreen = '';
+            operator = operatr.textContent;
+            setSubScreen(`${num1} ${operator} `);
+            onScreen = '';
+            setScreen('');
+            pressedEqual = false;
+
+        } 
+        // when the user has entered one number and presses the operator instead of = (continuing the expressio without pressing =)
+        else if (num1 !== undefined && num2 === undefined) {
+            console.log('middle');
+            num2 = Number(onScreen);
+            ans = operate(operator, num1, num2);
+            operator = operatr.textContent;
+            onSubScreen = '';
+            setSubScreen(`${ans} ${operator} `);
+            onScreen = '';
+            setScreen('');
+
+            num1 = ans;
+            num2 = undefined;
+        } 
+        // when no numbers have be entered
+        else {
+            console.log('bottom');
+            num1 = Number(onScreen);
+            operator = operatr.textContent;
+            setSubScreen(`${onScreen} ${operator} `);
+            onScreen = '';
+            setScreen('');
+        }
     })
 })
 
@@ -63,4 +94,8 @@ equals.addEventListener('click', () => {
     setSubScreen(`${num2} =`);
     onScreen = '';
     setScreen(`${ans}`);
+
+    num1 = ans;
+    num2 = undefined;
+    pressedEqual = true;
 })
